@@ -7,7 +7,7 @@ import urllib
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("--ref")
-PARSER.add_argument("files", nargs=-1)
+PARSER.add_argument("--subm")
 
 
 def download_url(url, save_path):
@@ -27,8 +27,7 @@ def main():
 
     print("Found ref: ", ref)
 
-    for file in args.files:
-        print("Grading ", file)
+    print("Grading ", args.subm)
 
 
 if __name__ == "__main__":
