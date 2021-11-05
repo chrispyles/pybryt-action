@@ -16,4 +16,4 @@ RUN conda env create -f /tmp/environment.yml
 
 ADD run_pybryt.py /run_pybryt.py
 
-ENTRYPOINT [ "python3", "/run_pybryt.py" ]
+ENTRYPOINT [ "conda", "run", "-n", "pybryt-env", "python3", "/run_pybryt.py" ]
