@@ -11,7 +11,7 @@ PARSER.add_argument("--subm")
 
 
 def download_url(url, save_path):
-    url = urllib.urlopen(url)
+    url = urllib.request.urlopen(url)
     with open(save_path, "wb") as f:
         f.write(url.read())
 
