@@ -1,0 +1,15 @@
+name: 'Assess with PyBryt'
+description: 'Run automated assessment of a repository with PyBryt'
+inputs:
+  submission-path:
+    description: 'The path to the submission'
+    required: true
+  reference-url:
+    description: 'URL of a reference implementation'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - --ref ${{ inputs.reference-url }}
+    - ${{ inputs.submission-path }}
