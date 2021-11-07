@@ -11,7 +11,7 @@ PARSER.add_argument("--subm")
 
 
 def parse_list_arg(ref_urls):
-    return [u.strip for u in ref_urls.split("\n")]
+    return [u.strip() for u in ref_urls.split("\n")]
 
 
 def get_full_path(repo_path):
