@@ -12,6 +12,6 @@ runs:
   image: 'Dockerfile'
   args:
     - --ref-urls
-    - "${{ inputs.reference-url }}"
+    - "${{ inputs.reference-urls }}"
     - --subm
     - "${{ inputs.submission-path }}"
