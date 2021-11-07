@@ -14,6 +14,8 @@ RUN conda --version
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
+ADD install_requirements.py /install_requirements.py
 ADD run_pybryt.py /run_pybryt.py
+ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT [ "conda", "run", "-n", "pybryt-env", "python3", "/run_pybryt.py" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
