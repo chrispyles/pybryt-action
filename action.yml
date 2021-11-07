@@ -4,14 +4,14 @@ inputs:
   submission-path:
     description: 'The path to the submission'
     required: true
-  reference-url:
+  reference-urls:
     description: 'URL of a reference implementation'
     required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - --ref
+    - --ref-urls
     - "${{ inputs.reference-url }}"
     - --subm
     - "${{ inputs.submission-path }}"

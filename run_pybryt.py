@@ -4,12 +4,14 @@ import pybryt
 import tempfile
 import urllib
 
-from pybryt.reference import generate_report
-
 
 PARSER = argparse.ArgumentParser()
-PARSER.add_argument("--ref")
+PARSER.add_argument("--ref-urls")
 PARSER.add_argument("--subm")
+
+
+def parse_list_arg(ref_urls):
+    return [u.strip for u in ref_urls.split("\n")]
 
 
 def get_full_path(repo_path):
@@ -28,17 +30,21 @@ def main():
 
     print(os.listdir(get_full_path("")))
 
-    with tempfile.NamedTemporaryFile(suffix=".pkl") as ref_ntf:
-        download_url(args.ref, ref_ntf.name)
-        ref = pybryt.ReferenceImplementation.load(ref_ntf.name)
+    ref_urls = parse_list_arg(args.ref_urls)
 
-    print("Found ref: ", ref.name)
+    refs = []
+    for ref_url in ref_urls:
+        with tempfile.NamedTemporaryFile(suffix=".pkl") as ref_ntf:
+            download_url(ref_url, ref_ntf.name)
+            refs.append(pybryt.ReferenceImplementation.load(ref_ntf.name))
+
+    print("Found refs: ", ", ".join(r.name for r in refs))
 
     subm_path = get_full_path(args.subm)
     print("Grading ", subm_path)
 
     stu = pybryt.StudentImplementation(subm_path)
-    res = stu.check(ref)
+    res = stu.check(refs)
     print(pybryt.generate_report(res))
 
 
