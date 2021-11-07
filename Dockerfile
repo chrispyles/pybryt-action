@@ -18,4 +18,6 @@ ADD install_requirements.py /install_requirements.py
 ADD run_pybryt.py /run_pybryt.py
 ADD entrypoint.sh /entrypoint.sh
 
+RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT [ "/entrypoint.sh" ]
