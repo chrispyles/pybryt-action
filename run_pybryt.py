@@ -32,7 +32,7 @@ def main():
     print(os.listdir(get_full_path("")))
 
     ref_urls = parse_list_arg(args.ref_urls)
-    addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.addition_files)]
+    addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.additional_files)]
 
     refs = []
     for ref_url in ref_urls:
