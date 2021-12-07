@@ -6,6 +6,7 @@ import urllib
 
 
 PARSER = argparse.ArgumentParser()
+PARSER.add_argument("--additional-files")
 PARSER.add_argument("--ref-urls")
 PARSER.add_argument("--subm")
 
@@ -31,6 +32,7 @@ def main():
     print(os.listdir(get_full_path("")))
 
     ref_urls = parse_list_arg(args.ref_urls)
+    addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.addition_files)]
 
     refs = []
     for ref_url in ref_urls:
@@ -43,7 +45,7 @@ def main():
     subm_path = get_full_path(args.subm)
     print("Grading ", subm_path)
 
-    stu = pybryt.StudentImplementation(subm_path)
+    stu = pybryt.StudentImplementation(subm_path, addl_filenames=addl_filenames)
     res = stu.check(refs)
     print(pybryt.generate_report(res))
 

@@ -7,6 +7,9 @@ inputs:
   reference-urls:
     description: 'URL of a reference implementation'
     required: true
+  additional-files:
+    description: 'Paths to additional files to trace'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -15,3 +18,5 @@ runs:
     - "${{ inputs.reference-urls }}"
     - --subm
     - "${{ inputs.submission-path }}"
+    - --additional-files
+    - "${{ inputs.additional-files }}"
