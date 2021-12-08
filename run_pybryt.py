@@ -65,7 +65,9 @@ def main():
             "student_implementation": stu.dumps(),
         })
 
-    print(f"::set-output name=output-json-path::'{json_str}'")
+    # print(f"::set-output name=output-json-path::'{json_str}'")
+    with open(os.environ["GITHUB_ENV"], "a") as f:
+        f.write(f"PYBRYT_RESULTS_JSON<<EOF\n{json_str}\nEOF\n")
 
 
 if __name__ == "__main__":
