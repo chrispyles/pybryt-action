@@ -32,8 +32,6 @@ def download_url(url, save_path):
 def main():
     args = PARSER.parse_args()
 
-    print(os.listdir(get_full_path("")))
-
     ref_urls = parse_list_arg(args.ref_urls)
     addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.additional_files)]
 
@@ -50,24 +48,18 @@ def main():
 
     stu = pybryt.StudentImplementation(subm_path, addl_filenames=addl_filenames)
     res = stu.check(refs)
-    print(pybryt.generate_report(res))
+    report = pybryt.generate_report(res)
+    print(report)
 
     _, json_path = tempfile.mkstemp(suffix=".json")
     print(f"::set-output name=output-json-path::{json_path}")
 
     with open(json_path, "w") as f:
         json.dump({
+            "report": report,
             "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
             "student_implementation": stu.dumps(),
         }, f)
-    # json_str = json.dumps({
-    #         "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
-    #         "student_implementation": stu.dumps(),
-    #     })
-
-    # print(f"::set-output name=output-json-path::'{json_str}'")
-    # with open(os.environ["GITHUB_ENV"], "a") as f:
-    #     f.write(f"PYBRYT_RESULTS_JSON<<EOF\n{json_str}\nEOF\n")
 
 
 if __name__ == "__main__":

@@ -27,8 +27,11 @@ runs:
           then $CONDA/bin/conda env create -f ${{ github.action_path }}/environment.yml;
         fi
       shell: bash
-    
-    - run: $CONDA/bin/conda run -n pybryt-env python3 ${{ github.action_path }}/install_requirements.py
+
+    - run: |
+        if [ -f "requirements.txt" ];
+          then $CONDA/bin/conda run -n pybryt-env pip install -r requirements.txt;
+        fi
       shell: bash
     
     - id: run-pybryt-script
