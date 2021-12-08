@@ -12,7 +12,7 @@ The PyBryt action accepts the following inputs:
 | `reference-urls` | yes | A newline-delimited list of URLs to reference implementations |
 | `additional-files` | no | A newline-delimited list of file paths to also trace when executing the submission |
 
-For example, to run PyBryt on the [Fibonacci demo in the main repo](https://github.com/microsoft/pybryt/tree/main/demo/fibonacci), you may use
+For example, to run PyBryt on the [Fibonacci demo in the main repo](https://github.com/microsoft/pybryt/tree/main/demo/fibonacci), you could use
 
 ```yaml
 name: Run PyBryt
