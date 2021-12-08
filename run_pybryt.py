@@ -55,19 +55,19 @@ def main():
     _, json_path = tempfile.mkstemp(suffix=".json")
     print(f"::set-output name=output-json-path::{json_path}")
 
-    # with open(json_path, "w") as f:
-    #     json.dump({
-    #         "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
-    #         "student_implementation": stu.dumps(),
-    #     }, f)
-    json_str = json.dumps({
+    with open(json_path, "w") as f:
+        json.dump({
             "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
             "student_implementation": stu.dumps(),
-        })
+        }, f)
+    # json_str = json.dumps({
+    #         "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
+    #         "student_implementation": stu.dumps(),
+    #     })
 
     # print(f"::set-output name=output-json-path::'{json_str}'")
-    with open(os.environ["GITHUB_ENV"], "a") as f:
-        f.write(f"PYBRYT_RESULTS_JSON<<EOF\n{json_str}\nEOF\n")
+    # with open(os.environ["GITHUB_ENV"], "a") as f:
+    #     f.write(f"PYBRYT_RESULTS_JSON<<EOF\n{json_str}\nEOF\n")
 
 
 if __name__ == "__main__":

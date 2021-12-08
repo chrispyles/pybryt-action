@@ -13,13 +13,25 @@ inputs:
 outputs:
   output-json-path:
     description: Path to PyBryt output JSON file
+    value: ${{ steps.run-pybryt-script.outputs.output-json-path }}
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - --ref-urls
-    - "${{ inputs.reference-urls }}"
-    - --subm
-    - "${{ inputs.submission-path }}"
-    - --additional-files
-    - "${{ inputs.additional-files }}"
+  using: 'composite'
+  steps:
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    
+    - run: $CONDA/bin/conda env create -f ${{ github.action_path }}/environment.yml
+      shell: bash
+    
+    - run: $CONDA/bin/conda run -n pybryt-env python3 ${{ github.action_path }}/install_requirements.py
+      shell: bash
+    
+    - id: run-pybryt-script
+      run: |
+        $CONDA/bin/conda run -n pybryt-env python3 ${{ github.action_path }}/run_pybryt.py \
+          --additional-files "${{ inputs.additional-files }}" \
+          --ref-urls "${{ inputs.reference-urls }}" \
+          --subm "${{ inputs.submission-path }}"
+      shell: bash
