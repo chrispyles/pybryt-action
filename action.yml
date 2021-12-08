@@ -22,7 +22,7 @@ runs:
       with:
         python-version: 3.8
     
-    - run: $CONDA/bin/conda env create -f ${{ github.action_path }}/environment.yml
+    - run: $CONDA/bin/conda env create -f ${{ github.action_path }}/environment.yml --force
       shell: bash
     
     - run: $CONDA/bin/conda run -n pybryt-env python3 ${{ github.action_path }}/install_requirements.py
