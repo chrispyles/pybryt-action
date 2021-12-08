@@ -1,4 +1,6 @@
 import argparse
+import base64
+import dill
 import os
 import pybryt
 import tempfile
@@ -48,6 +50,12 @@ def main():
     stu = pybryt.StudentImplementation(subm_path, addl_filenames=addl_filenames)
     res = stu.check(refs)
     print(pybryt.generate_report(res))
+
+    pickled_res = base64.b64encode(dill.dumps(res)).decode("utf-8")
+    print(f"::set-output name=results::{pickled_res}")
+
+    pickled_stu = stu.dumps()
+    print(f"::set-output name=student-implementation::{pickled_stu}")
 
 
 if __name__ == "__main__":

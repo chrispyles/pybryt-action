@@ -10,6 +10,11 @@ inputs:
   additional-files:
     description: 'Paths to additional files to trace'
     required: false
+outputs:
+  results:
+    description: base-64 encoded string containing the pickled results objects
+  student-implementation:
+    description: base-64 encoded pickled student implementation
 runs:
   using: 'docker'
   image: 'Dockerfile'
