@@ -11,10 +11,8 @@ inputs:
     description: 'Paths to additional files to trace'
     required: false
 outputs:
-  results:
-    description: base-64 encoded string containing the pickled results objects
-  student-implementation:
-    description: base-64 encoded pickled student implementation
+  output-json-path:
+    description: Path to PyBryt output JSON file
 runs:
   using: 'docker'
   image: 'Dockerfile'

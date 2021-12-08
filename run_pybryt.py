@@ -1,6 +1,7 @@
 import argparse
 import base64
 import dill
+import json
 import os
 import pybryt
 import tempfile
@@ -51,11 +52,14 @@ def main():
     res = stu.check(refs)
     print(pybryt.generate_report(res))
 
-    pickled_res = base64.b64encode(dill.dumps(res)).decode("utf-8")
-    print(f"::set-output name=results::{pickled_res}")
+    _, json_path = tempfile.mkstemp(suffix=".json")
+    print(f"::set-output name=output-json-path::{json_path}")
 
-    pickled_stu = stu.dumps()
-    print(f"::set-output name=student-implementation::{pickled_stu}")
+    with open(json_path) as f:
+        json.dump({
+            "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
+            "student_implementation": stu.dumps(),
+        }, f)
 
 
 if __name__ == "__main__":
