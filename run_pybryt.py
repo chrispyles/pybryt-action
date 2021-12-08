@@ -55,11 +55,17 @@ def main():
     _, json_path = tempfile.mkstemp(suffix=".json")
     print(f"::set-output name=output-json-path::{json_path}")
 
-    with open(json_path, "w") as f:
-        json.dump({
+    # with open(json_path, "w") as f:
+    #     json.dump({
+    #         "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
+    #         "student_implementation": stu.dumps(),
+    #     }, f)
+    json_str = json.dumps({
             "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
             "student_implementation": stu.dumps(),
-        }, f)
+        })
+
+    print(f"::set-output name=output-json-path::'{json_str}'")
 
 
 if __name__ == "__main__":
