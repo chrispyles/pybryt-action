@@ -11,9 +11,15 @@ inputs:
     description: 'Paths to additional files to trace'
     required: false
 outputs:
-  output-json-path:
-    description: Path to PyBryt output JSON file
-    value: ${{ steps.run-pybryt-script.outputs.output-json-path }}
+  report-path:
+    description: Path to a text file containing PyBryt's report
+    value: ${{ steps.run-pybryt-script.outputs.report-path }}
+  results-path:
+    description: Path to a file containing a pickled list of results objects
+    value: ${{ steps.run-pybryt-script.outputs.results-path }}
+  student-implementation-path:
+    description: Path to a file containing the pickled student implementation
+    value: ${{ steps.run-pybryt-script.outputs.student-implementation-path }}
 runs:
   using: 'composite'
   steps:

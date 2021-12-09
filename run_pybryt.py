@@ -51,15 +51,22 @@ def main():
     report = pybryt.generate_report(res)
     print(report)
 
-    _, json_path = tempfile.mkstemp(suffix=".json")
-    print(f"::set-output name=output-json-path::{json_path}")
+    _, report_path = tempfile.mkstemp(suffix=".txt")
+    with open(report_path) as f:
+        f.write(report)
 
-    with open(json_path, "w") as f:
-        json.dump({
-            "report": report,
-            "results": base64.b64encode(dill.dumps(res)).decode("utf-8"),
-            "student_implementation": stu.dumps(),
-        }, f)
+    print(f"::set-output name=report-path::{report_path}")
+
+    _, results_path = tempfile.mkstemp(suffix=".pkl")
+    with open(results_path, "wb") as f:
+        dill.dump(res, f)
+
+    print(f"::set-output name=results-path::{results_path}")
+
+    _, stu_path = tempfile.mkstemp(suffix=".pkl")
+    stu.dump(stu_path)
+
+    print(f"::set-output name=student-implementation-path::{stu_path}")
 
 
 if __name__ == "__main__":
