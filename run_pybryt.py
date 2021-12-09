@@ -52,7 +52,7 @@ def main():
     print(report)
 
     _, report_path = tempfile.mkstemp(suffix=".txt")
-    with open(report_path) as f:
+    with open(report_path, "w") as f:
         f.write(report)
 
     print(f"::set-output name=report-path::{report_path}")
