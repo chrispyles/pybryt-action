@@ -9,7 +9,7 @@ The PyBryt action accepts the following inputs:
 | Name | Required | Description |
 |-----|-----|-----|
 | `submission-path` | yes | The path to the submission file to run |
-| `reference-urls` | yes | A newline-delimited list of URLs to reference implementations |
+| `references` | yes | A newline-delimited list of paths or URLs to reference implementations |
 | `additional-files` | no | A newline-delimited list of file paths to also trace when executing the submission |
 
 For example, to run PyBryt on the [Fibonacci demo in the main repo](https://github.com/microsoft/pybryt/tree/main/demo/fibonacci), you could use
@@ -30,7 +30,7 @@ jobs:
         uses: chrispyles/pybryt-action@main # TODO: update the version
         with:
           submission-path: demo/fibonacci/submissions/subm01.ipynb
-          reference-urls: |
+          references: |
             https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_dyn.pkl
             https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_map.pkl
             https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_no_recurse.pkl
@@ -45,10 +45,10 @@ If you were using a notebook as a testing harness, you may want something like:
     submission-path: harness.ipynb
     additional-files: |
       student_code.py
-    reference-urls: |
-      https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_dyn.pkl
-      https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_map.pkl
-      https://raw.githubusercontent.com/microsoft/pybryt/main/demo/fibonacci/fibonacci_no_recurse.pkl
+    references: |
+      references/fibonacci_dyn.pkl
+      references/fibonacci_map.pkl
+      references/fibonacci_no_recurse.pkl
 ```
 
 ## Outputs
