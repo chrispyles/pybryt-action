@@ -2,6 +2,7 @@ import argparse
 import dill
 import os
 import pybryt
+import sys
 import tempfile
 import urllib
 import validators
@@ -35,6 +36,7 @@ def main():
     addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.additional_files)]
 
     print(os.getcwd(), os.listdir())
+    sys.path.insert(0, ".")
 
     refs = []
     for ref_path in ref_paths_or_urls:
