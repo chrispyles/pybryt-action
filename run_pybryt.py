@@ -34,6 +34,8 @@ def main():
     ref_paths_or_urls = parse_list_arg(args.references)
     addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.additional_files)]
 
+    print(os.getcwd(), os.listdir())
+
     refs = []
     for ref_path in ref_paths_or_urls:
         if validators.url(ref_path):
