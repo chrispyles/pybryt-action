@@ -1,16 +1,15 @@
 import argparse
-import base64
 import dill
-import json
 import os
 import pybryt
 import tempfile
 import urllib
+import validators
 
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("--additional-files")
-PARSER.add_argument("--ref-urls")
+PARSER.add_argument("--references")
 PARSER.add_argument("--subm")
 
 
@@ -32,14 +31,22 @@ def download_url(url, save_path):
 def main():
     args = PARSER.parse_args()
 
-    ref_urls = parse_list_arg(args.ref_urls)
+    ref_paths_or_urls = parse_list_arg(args.references)
     addl_filenames = [os.path.abspath(f) for f in parse_list_arg(args.additional_files)]
 
     refs = []
-    for ref_url in ref_urls:
-        with tempfile.NamedTemporaryFile(suffix=".pkl") as ref_ntf:
-            download_url(ref_url, ref_ntf.name)
-            refs.append(pybryt.ReferenceImplementation.load(ref_ntf.name))
+    for ref_path in ref_paths_or_urls:
+        if validators.url(ref_path):
+            with tempfile.NamedTemporaryFile(suffix=".pkl") as ref_ntf:
+                download_url(ref_path, ref_ntf.name)
+                ref = pybryt.ReferenceImplementation.load(ref_ntf.name)
+        else:
+            ref = pybryt.ReferenceImplementation.load(ref_path)
+
+        if isinstance(ref, list):
+            refs.extend(ref)
+        else:
+            refs.append(ref)
 
     print("Found refs: ", ", ".join(r.name for r in refs))
 

@@ -4,8 +4,8 @@ inputs:
   submission-path:
     description: 'The path to the submission'
     required: true
-  reference-urls:
-    description: 'URL of a reference implementation'
+  references:
+    description: 'Paths or URLs of reference implementations'
     required: true
   additional-files:
     description: 'Paths to additional files to trace'
@@ -44,6 +44,6 @@ runs:
       run: |
         $CONDA/bin/conda run -n pybryt-env python3 ${{ github.action_path }}/run_pybryt.py \
           --additional-files "${{ inputs.additional-files }}" \
-          --ref-urls "${{ inputs.reference-urls }}" \
+          --references "${{ inputs.references }}" \
           --subm "${{ inputs.submission-path }}"
       shell: bash
