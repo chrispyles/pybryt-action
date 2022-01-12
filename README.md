@@ -1,5 +1,7 @@
 # PyBryt Action
 
+**NOTE:** This project has been moved to [microsoft/pybryt-action](https://github.com/microsoft/pybryt-action).
+
 An action for running [PyBryt](https://microsoft.github.io/pybryt) as an automated assessment tool on GitHub repositories.
 
 ## Usage
